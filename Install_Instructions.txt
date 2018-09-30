@@ -114,4 +114,4 @@ systemctl start lightgdm
 # Has to be executed as root
 ./move_root 
 # Should be executed as user
-./move
+./move_user
