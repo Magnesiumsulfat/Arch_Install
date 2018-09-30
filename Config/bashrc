@@ -1,0 +1,22 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+alias ls='ls --color=auto'
+PS1='[\u@\h \W]\$ '
+
+### by Sascha ###
+
+# PATH 
+PATH=$PATH:/home/sascha/.bin/
+
+# Editor
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
+# Aliases
+alias c='clear'
+alias w3m='w3m www.duckduckgo.com'

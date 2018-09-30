@@ -1,0 +1,113 @@
+#!/bin/bash
+# NOT ACTUALLY A BASH SCRIPT AT THIS POINT, BUT I LIKE THE SYNTAX HIGHLIGHTING 
+# by Sascha Trippel
+
+
+# Load German keyboard
+loadkeys de-latin1
+
+### Create partition table ###
+# you can use cfdisk or gdisk for that
+
+# for cfdisk
+# sdx is the drive you want to alter
+lsblk
+cfdisk /dev/sdx 
+
+# for gdisk
+# sdx is the drive you want to alter
+lsblk
+gdisk /dev/sdx
+
+# o	create a new partition table
+# n	create a new partition
+# 	EF00 for EFI-partition
+#	8300 for Linux Filesystem
+# p	display summary
+# w	write partition table to disk
+
+### Format Partitions ###
+# sdx1 is the partition you want to alter
+
+# Format ext4 partitions
+mkfs.ext4 /dev/sdx1
+
+# Format fat32 partitions
+mkfs.fat -F32 /dev/sdx1
+
+### Mount Partitions ###
+# sdx1 is the EFI partition
+# sdx2 is the root partition
+
+mount /dev/sdx2 /mnt
+mkdir /mnt/boot
+mount /dev/sdx1 /mnt/boot
+
+# Install Linux
+pacstrap /mnt base
+
+# Generate fstab file
+genfstab -U /mnt >> /mnt/etc/fstab
+
+### System configuration ###
+arch-chroot /mnt
+
+# Set hostname
+echo "hostname of your choice" > /etc/hostname
+
+# Set root password
+passwd root
+
+# Install bootloader
+bootctl install
+
+# Install unicode if necessary 
+pacman -S intel-ucode gvim # intel-ucode only for some intel cpus,	gvim as editor alternativly use 'nano'
+
+### Configure bootloader ###
+cd /boot/loader
+cp Bootloader_config/loader.conf /boot/loader/loader.conf
+# You need to adjust arch.conf for your system!
+cp Bootloader_config/arch.conf /boot/loader/entries/arch.conf
+
+# End Installation
+exit
+umount -R /mnt
+reboot
+
+### GUI install ###
+
+# load German keyboard
+loadkeys de-latin1
+# Establish a network connection
+systemctl start dhcpcd.service
+
+# Add user
+useradd -m -g users -s /bin/bash username
+passwd username
+
+# install xorg-software
+pacman -S xorg-server xorg-xinit xorg-apps mesa xf86-input-synaptics xorg-twm xorg-xclock xterm
+# install lightdm and i3
+pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings i3 dmenu 
+# install required packages
+pacman -S sudo ufw base-devel ttf-dejavu
+# install optional packages
+pacman -S htop git terminator openssh netwokmanager pavucontrol pcmanfm-gtk3 gvfs pulseaudio ntp ttf-ubuntu-font-family pamixer
+
+# install graphic driver
+# for Nvidia
+pacman -S nvidia
+# for Intel
+pacman -S xf86-video-intel
+
+# Set timezone
+timedatectl set-timezone Europe/Berlin
+
+### Start gui ###
+systemctl start lightgdm
+
+### Basic configuration ###
+# execute move
+# command out those files that you don't want/need
+./move
