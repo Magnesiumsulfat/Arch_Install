@@ -110,4 +110,8 @@ systemctl start lightgdm
 ### Basic configuration ###
 # execute move
 # command out those files that you don't want/need
+
+# Has to be executed as root
+./move_root 
+# Should be executed as user
 ./move
