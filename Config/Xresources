@@ -1,0 +1,12 @@
+XTerm*background: black
+XTerm*foreground: white
+
+xterm*font: *-fixed-*-*-*-24-*
+Xft*antialias: true
+Xft*autohint: true
+XTerm*saveLines: 10000
+XTerm*faceName: BitStream Vera Sans Mono
+XTerm*faceSize: 18
+XTerm*toolBar:	On
+
+XTerm.vt100.selectToClipboard

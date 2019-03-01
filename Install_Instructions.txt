@@ -93,7 +93,7 @@ pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings i3 dmenu
 # install required packages
 pacman -S sudo ufw base-devel ttf-dejavu
 # install optional packages
-pacman -S htop git terminator openssh netwokmanager pavucontrol pcmanfm-gtk3 gvfs pulseaudio ntp ttf-ubuntu-font-family pamixer
+pacman -S htop git openssh netwokmanager pavucontrol pcmanfm-gtk3 gvfs pulseaudio ntp ttf-ubuntu-font-family pamixer
 
 # install graphic driver
 # for Nvidia
