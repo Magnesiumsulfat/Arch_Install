@@ -113,3 +113,5 @@ systemctl start lightgdm
 ./move_root 
 # Should be executed as user
 ./move_user
+# Has to be executed as root
+./optional_packages
