@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Audio
+pacman -S pulseaudio pavucontrol pamixer
+
+# System
+pacman -S git htop ntp ttf-ubuntu-font-family unclutter maim
+
+# Network
+pacman -S openssh networkmanager
+
+# File management
+pacman -S pacmanfm-gtk3 gvfs	# GUI based
+pacman -S ranger		# Terminal based
