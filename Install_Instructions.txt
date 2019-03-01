@@ -61,8 +61,8 @@ passwd root
 # Install bootloader
 bootctl install
 
-# Install unicode if necessary 
-pacman -S intel-ucode gvim # intel-ucode only for some intel cpus,	gvim as editor alternativly use 'nano'
+# Install Unicode if necessary 
+pacman -S intel-ucode gvim # intel-ucode only for some Intel CPUs,	gvim as editor alternatively use 'nano'
 
 ### Configure bootloader ###
 cd /boot/loader
@@ -102,7 +102,7 @@ pacman -S xf86-video-intel
 # Set timezone
 timedatectl set-timezone Europe/Berlin
 
-### Start gui ###
+### Start GUI ###
 systemctl start lightgdm
 
 ### Basic configuration ###
@@ -115,3 +115,5 @@ systemctl start lightgdm
 ./move_user
 # Has to be executed as root
 ./optional_packages
+# Synchronize time on system startup
+systemctl enable ntpdate.service
