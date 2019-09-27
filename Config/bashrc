@@ -10,8 +10,10 @@ PS1='[\u@\h \W]\$ '
 
 ### by Sascha ###
 
+set -o vi
+
 # PATH 
-PATH=$PATH:~/.bin/
+export PATH=$PATH:~/.bin/
 
 # Editor
 export VISUAL=vim
@@ -19,4 +21,3 @@ export EDITOR="$VISUAL"
 
 # Aliases
 alias c='clear'
-alias w3m='w3m www.duckduckgo.com'
