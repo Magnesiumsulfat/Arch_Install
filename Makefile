@@ -1,3 +1,8 @@
+all: user root packages
+	echo 'For laptop configuratins run "make laptop".'
+
+### Create configuration files ###
+
 user: gtk shell xterm
 
 root: keyboard local # needs sudo
@@ -30,6 +35,20 @@ tap_to_click:
 backlight: # needs xbacklight
 	cp Config/20-intel.conf /etc/X11/xorg.conf.d/
 
+### Install packages ###
 
+packages:
+	# Audio
+	sudo pacman -S pulseaudio pavucontrol pamixer
+	
+	# System
+	sudo pacman -S git htop ntp ttf-ubuntu-font-family unclutter maim
 
-.PHONY: user root laptop gtk shell xterm keyboard local tap_to_click backlight
+	# Network
+	sudo pacman -S openssh networkmanager
+
+	# File management
+	sudo pacman -S pacmanfm-gtk3 gvfs	# GUI based
+	sudo pacman -S ranger			# Terminal based
+
+.PHONY: all user root laptop gtk shell xterm keyboard local tap_to_click backlight packages
