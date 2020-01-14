@@ -7,7 +7,7 @@ pacman -S pulseaudio pavucontrol pamixer
 pacman -S git htop ntp ttf-ubuntu-font-family unclutter maim
 
 # Network
-pacman -S openssh networkmanager dnsutils
+pacman -S openssh networkmanager dnsutils net-tools
 
 # File management
 pacman -S pacmanfm-gtk3 gvfs	# GUI based
