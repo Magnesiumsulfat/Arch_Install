@@ -1,0 +1,53 @@
+" File backup
+set backup
+set backupdir=~/.vimtmp
+set directory=~/.vimtmp
+
+" Syntax highlighting
+filetype indent plugin on
+syntax on
+
+" Show line numbers
+set nu
+
+" Set language for spellcheck
+set spelllang=de,en
+
+" Configure tabline
+set tabline=%!MyTabLine()
+
+function MyTabLabel(n)
+	let buflist = tabpagebuflist(a:n)
+	let winnr = tabpagewinnr(a:n)
+	let relpath = bufname(buflist[winnr - 1])
+	let pathlist = split(relpath, '/')
+	if pathlist == []
+		let name = '[No Name]'
+	else
+		let name = pathlist[-1]
+	endif
+	return name
+endfunction
+
+function MyTabLine()
+	let s = ''
+	for i in range(tabpagenr('$'))
+		" select the highlighting
+		if i + 1 == tabpagenr()
+			let s .= '%#TabLineSel#'
+		else
+			let s .= '%#TabLine#'
+		endif
+
+		" set the tab page number (for mouse clicks)
+		let s .= (i + 1)
+
+		" the label is made by MyTabLabel()
+		let s .= ' %{MyTabLabel(' . (i + 1) . ')} '
+	endfor
+
+	" after the last tab fill with TabLineFill and reset tab page nr
+	let s .= '%#TabLineFill#%T'
+
+	return s
+endfunction

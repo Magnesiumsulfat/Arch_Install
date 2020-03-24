@@ -17,6 +17,7 @@ gtk:
 shell:
 	cp Config/bashrc ~/.bashrc
 	cp Config/inputrc ~/.inputrc
+	cp Config/vimrc ~/.vimrc
 
 xterm:
 	cp Config/Xresources ~/.Xresources
