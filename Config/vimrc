@@ -7,11 +7,16 @@ set directory=~/.vimtmp
 filetype indent plugin on
 syntax on
 
+" Ident for unknowen file type
+set smartindent
+
 " Show line numbers
 set nu
 
-" Set language for spellcheck
-set spelllang=de,en
+" Spellcheck
+set spelllang=en,de
+nmap <F3> :set spell!<CR>
+
 
 " Configure tabline
 set tabline=%!MyTabLine()
@@ -51,3 +56,49 @@ function MyTabLine()
 
 	return s
 endfunction
+
+" split navigation
+nmap <silent> <c-k> :wincmd k<CR>
+nmap <silent> <c-j> :wincmd j<CR>
+nmap <silent> <c-h> :wincmd h<CR>
+nmap <silent> <c-l> :wincmd l<CR>
+
+" --- Plugins ---
+
+" tagbar
+nmap <F9> :TagbarToggle<CR>
+let g:tagbar_autoclose = 1
+let g:tagbar_autofocus = 1
+let g:tagbar_compact = 2
+let g:tagbar_foldlevel = 0
+let g:tagbar_autoshowtag = 1
+
+" gitgutter
+nmap <F10> :GitGutterSignsToggle<CR>
+highlight! link SignColumn LineNr
+let g:gitgutter_enabled = 0
+
+" grammarous
+" https://github.com/rhysd/vim-grammarous
+nmap <F4> :GrammarousCheck<CR>
+
+let g:grammarous#hooks = {}
+function! g:grammarous#hooks.on_check(errs) abort
+	nmap <F4> :GrammarousReset<CR>
+	nmap <F5> <Plug>(grammarous-move-to-next-error)<CR>
+	nmap <F6> <Plug>(grammarous-move-to-info-window)<CR>
+	nmap <F7> <Plug>(grammarous-fixit)<CR>
+	nmap <F8> <Plug>(grammarous-remove-error)<CR>
+endfunction
+
+function! g:grammarous#hooks.on_reset(errs) abort
+	nmap <F4> :GrammarousCheck<CR>
+	nmap <F5> :GrammarousReset<CR>
+	nmap <F6> :GrammarousReset<CR>
+	nmap <F7> :GrammarousReset<CR>
+	nmap <F8> :GrammarousReset<CR>
+endfunction
+
+let g:grammarous#disabled_rules = {
+			\ '*' : ['COMMA_PARENTHESIS_WHITESPACE', 'UNLIKELY_OPENING_PUNCTUATION', 'DASH_RULE'],
+			\ }
