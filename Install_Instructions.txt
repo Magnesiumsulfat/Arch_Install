@@ -44,7 +44,7 @@ mkdir /mnt/boot
 mount /dev/sdx1 /mnt/boot
 
 # Install Linux
-pacstrap /mnt base
+pacstrap /mnt base linux linux-firmware
 
 # Generate fstab file
 genfstab -U /mnt >> /mnt/etc/fstab
