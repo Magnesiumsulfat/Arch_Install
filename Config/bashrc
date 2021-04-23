@@ -21,3 +21,4 @@ export EDITOR="$VISUAL"
 
 # Aliases
 alias c='clear'
+alias o="xdg-open $@"
